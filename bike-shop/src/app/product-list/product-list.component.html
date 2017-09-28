@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    {{pageTitle}}
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-2">Filter by:</div>
+      <div class="col-md-4">
+        <label class="checkbox-inline" *ngFor="let category of categories"><input type="checkbox" value="" [(ngModel)]='category.isVisible' (change)="filterBikes()">{{category.categoryName}}</label>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table" *ngIf="products && products.length">
+        <thead>
+          <tr>
+            <th>
+              <button class="btn btn-primary" (click)='ToggleImage()'>{{showImages ? "Hide":"Show"}} Images</button>
+            </th>
+            <th>Product</th>
+            <th>Code</th>
+            <th>Available</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>5 Star Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>
+              <img *ngIf='showImages' [src]='product.imageUrl' [title]='product.bikeName' [style.width.px]='imageWidth' [style.margin]='imageMargin'>
+            </td>
+            <td>{{product.bikeName}}</td>
+            <td>{{product.bikeCode | lowercase | convertToSpaces:'-'}}</td>
+            <td>{{product.releaseDate}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>
+            <td>{{product.starRating}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
